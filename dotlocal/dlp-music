@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -euo pipefail
+
+PACKAGES='yt-dlp ffmpeg'
+DIR="$HOME/.local/Music"
+
+# Ensure prerequisites are installed
+if ! command -v $PACKAGES >/dev/null 2>&1; then
+    sudo dnf install -y $PACKAGES
+fi
+
+# Ensure the directory exists
+if [[ ! -d "$DIR" ]]; then
+	mkdir -p $DIR
+fi
+
+echo -e '\033[36mName of the song:\033[0m'
+read SONG
+
+echo -e '\033[36mName of the Artist:\033[0m'
+read ARTIST
+
+echo -e '\033[36mPaste the URL:\033[0m'
+read URL
+
+yt-dlp -q \
+	   --no-warnings \
+	   --embed-thumbnail \
+	   --postprocessor-args "ffmpeg:-metadata title='$SONG' -metadata artist='$ARTIST' -metadata album='LBarrys'" \
+       -x \
+       --audio-format mp3 \
+       --audio-quality 0 \
+       -P $DIR \
+       --output "$SONG - $ARTIST" \
+       $URL
+       
+echo -e '\033[36mDownload is complete!'

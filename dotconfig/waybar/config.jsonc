@@ -1,0 +1,82 @@
+//////////////////////////////////
+// LBarrys Waybar Configuration //
+//////////////////////////////////
+
+{
+
+///////////////////
+// Positionining //
+///////////////////
+
+    "position": "bottom", 
+    "height": 25,
+    "margin-bottom": 8,
+    "width": 1910,
+    "spacing": 5, 
+
+/////////////
+// Modules //
+/////////////
+
+    "modules-left": [
+        "network",
+        "custom/vpn",
+    ],
+
+    "modules-center": [
+        "clock",
+        "custom/weather",
+    ],
+
+    "modules-right": [
+        "tray",
+        "memory",
+        "custom/cpu",
+        "custom/gpu",
+    ],
+
+///////////////////////////
+// Modules Configuration //
+//////////////////////////
+
+    "tray": {
+        "spacing": 10
+    },
+
+    "clock": {
+        "format": " {:%Y/%m/%d %I:%M %p} ",
+    },
+
+    "custom/weather": {
+        "format": " {} ",
+        "exec": "~/.config/waybar/scripts/weather.sh",
+        "interval": 600,
+    },
+
+    "custom/cpu": {
+        "format": " {} ",
+        "exec": "~/.config/waybar/scripts/cpu.sh",
+        "interval": 1,
+    },
+
+    "custom/gpu": {
+        "format": " {} ",
+        "exec": "~/.config/waybar/scripts/gpu.sh",
+        "interval": 1,
+    },
+
+    "custom/vpn": {
+	    "format": " VPN: {} ",
+	    "exec": "warp-cli status | grep -oE 'Connected|Disconnected'",
+	    "interval": 1,
+    },
+
+    "memory": {
+        "format": " Mem: {used}GiB "
+    },
+
+    "network": {
+        "format": " eth0: Online ",
+        "format-disconnected": " eth0: Offline "
+    },
+}

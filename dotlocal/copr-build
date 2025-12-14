@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -euo pipefail
+
+# Ensure copr-cli exists
+if ! command -v copr-cli >/dev/null 2>&1; then
+    echo "copr-cli is not installed."
+    sudo dnf install -y copr-cli
+    echo "Finished installing copr-cli."
+fi
+
+# Ensure API file exists
+COPR_CONF="$HOME/.config/copr"
+if [[ ! -f "$COPR_CONF" ]]; then
+    echo "copr-cli API file not found."
+    printf "Paste your COPR API token, then press Enter:\n"
+    read -r COPR_API
+    printf "%s\n" "$COPR_API" > "$COPR_CONF"
+    echo "Copr API file created."
+fi
+
+# Arguments check
+if [[ $# -lt 3 ]]; then
+    printf "\e[33mUsage:\e[0m\n"
+    echo "  $0 <package> <SRPM|SPEC> <-r chroot1 -r chroot2 ...>"
+    exit 1
+fi
+
+printf "\e[33mLaunching copr-cli build...\e[0m\n"
+copr-cli build "$1" "$2" ${@:3}
+
+exit
