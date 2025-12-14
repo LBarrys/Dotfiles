@@ -1,0 +1,9 @@
+#!/bin/bash
+
+FOLDER=$HOME/.local/Screenshot
+mkdir -p "$FOLDER"
+
+# Get active window geometry
+ACTIVE=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
+
+grim -g "$ACTIVE" $FOLDER/screenshot$(date +%F_%H-%M-%S).png

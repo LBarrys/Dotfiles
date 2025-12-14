@@ -1,0 +1,6 @@
+#!/bin/bash
+
+FOLDER=$HOME/.local/Screenshot
+mkdir -p "$FOLDER"
+
+grim "$FOLDER/Screenshot-$(date +%F_%H-%M-%S).png"
