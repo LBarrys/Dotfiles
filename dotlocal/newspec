@@ -1,0 +1,50 @@
+#!/bin/bash
+
+set -euo pipefail
+
+NAME="$1"
+VERSION="$2"
+URL="$3"
+
+SPEC=$(cat <<EOF
+Name:           ${NAME}
+Version:        ${VERSION}
+Release:        1%{?dist}
+Summary:        
+
+License:        
+URL:            ${URL}
+Source:         %{url}
+
+BuildRequires:  
+
+Requires:       
+
+%description
+
+%prep
+%autosetup
+
+%build
+
+%install
+
+%files
+%license 
+%doc 
+
+%changelog
+%auchangelog
+EOF)
+
+SPECDIR="$HOME/rpmbuild/SPECS"
+SPECFILE="${SPECDIR}/${NAME}.spec"
+
+# Write output to either rpmbuild/SPECS or current directory
+if [[ -d "$SPECDIR" ]]; then
+    printf "%s\n" "$SPEC" > "$SPECFILE"
+else
+    printf "%s\n" "$SPEC" > "${NAME}.spec"
+fi
+
+exit
