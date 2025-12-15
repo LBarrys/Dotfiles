@@ -1,24 +1,42 @@
 #!/bin/bash
 
+########
+# PATH #
+########
 export PATH
 
+############################
+# Load system-wide profile #
+############################
+if [ -f /etc/profile ]; then
+    . /etc/profile
+fi
+
+##########
+# Locale #
+##########
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
+###########
+# Editors #
+###########
+export EDITOR=micro
+export VISUAL=$EDITOR
+
+################
+# Applications #
+################
+export BROWSER=firefox
+export TERMINAL=alacritty
+
+########################
+# XDG Base Directories #
+########################
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_STATE_HOME="$HOME/.local/state"
 export XDG_CACHE_HOME="$HOME/.cache"
-
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-
-export EDITOR=micro
-export VISUAL=$EDITOR
-
-export BROWSER=firefox
-export TERMINAL=alacritty
-
-if [ -f /etc/profile ]; then
-    . /etc/profile
-fi
 
 export HISTFILE="$XDG_STATE_HOME"/bash/history
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv
@@ -30,8 +48,12 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 ##########
 # Promit #
 ##########
-
 PS1='\[\033[1;32m\]\u \[\033[0;37m\]\W \[\033[1;32m\]>\[\033[0;37m\] '
+
+#############
+# Fastfetch #
+#############
+fastfetch --color green
 
 ###########
 # Aliases #
@@ -57,7 +79,6 @@ alias timeshiftR='sudo timeshift --restore && sudo grub2-mkconfig -o /boot/grub2
 alias timeshiftD='sudo timeshift --delete && sudo grub2-mkconfig -o /boot/grub2/grub.cfg'
 
 # Colors
-
 NOCOLOR='\033[0m'
 BLACK='\033[30m'
 RED='\033[31m'
@@ -67,9 +88,3 @@ BLUE='\033[34m'
 MAGENTA='\033[35m'
 CYAN='\033[36m'
 WHITE='\033[1;37m'
-
-#############
-# Fastfetch #
-#############
-
-fastfetch --color green
