@@ -77,7 +77,7 @@ alias s='dnf search'
 alias autoremove='sudo dnf autoremove'
 alias list-installed='dnf list --installed'
 
-# git
+# GIT
 alias gc="git clone"
 alias gi="git init"
 alias ga="git add"
@@ -86,8 +86,9 @@ alias gre="git restore"
 alias grm="git rm"
 alias gco="git commit"
 alias gpr="git pull --rebase origin main"
+alias gp="git push"
 
-# tar
+# TAR
 alias ctar="tar -czvf"
 alias xtar="tar -xvzf"
 alias ltar="tar -tvf"
