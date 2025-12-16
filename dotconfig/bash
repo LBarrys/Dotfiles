@@ -24,12 +24,6 @@ export LC_ALL=en_US.UTF-8
 export EDITOR=micro
 export VISUAL=$EDITOR
 
-################
-# Applications #
-################
-export BROWSER=firefox
-export TERMINAL=alacritty
-
 ########################
 # XDG Base Directories #
 ########################
