@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# ===== CONFIGURE YOUR LOCATION =====
-LAT="24.537006320658723"    # Example: Riyadh latitude
-LON="46.66417330700733"    # Example: Riyadh longitude
-# ====================================
+# Your Location
+LAT="."
+LON="."
 
 url="https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current_weather=true"
 
