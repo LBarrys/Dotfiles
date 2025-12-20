@@ -4,7 +4,7 @@ padding = { x = 2, y = 2 }
 dynamic_padding = true
 
 [font]
-normal = { family = "JetBrains Mono", style = "Medium" }
+normal = { family = "Noto Mono", style = "Medium" }
 size = 12
 
 [colors.primary]
