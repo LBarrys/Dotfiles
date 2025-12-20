@@ -11,7 +11,7 @@
 @define-color white #ebdbb2; 
 
 * {
-    font-family: "JetBrains Mono", monospace;
+    font-family: "Noto Mono", monospace;
     font-size: 14px;
     font-weight: bold;
     border: none;
