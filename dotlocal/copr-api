@@ -11,22 +11,15 @@ fi
 
 # Ensure API file exists
 COPR_CONF="$HOME/.config/copr"
+API_URL="https://copr.fedorainfracloud.org//api"
 if [[ ! -f "$COPR_CONF" ]]; then
     echo "copr-cli API file not found."
-    printf "Paste your COPR API token, then press Enter:\n"
-    read -r COPR_API
+    echo "Paste your COPR API token you can find it at $API_URL :"
+    # Read multiple lines until Ctrl+D
+    COPR_API=$(cat)
+    # Save to file
     printf "%s\n" "$COPR_API" > "$COPR_CONF"
     echo "Copr API file created."
 fi
-
-# Arguments check
-if [[ $# -lt 3 ]]; then
-    printf "\e[33mUsage:\e[0m\n"
-    echo "  $0 <package> <SRPM|SPEC> <-r chroot1 -r chroot2 ...>"
-    exit 1
-fi
-
-printf "\e[33mLaunching copr-cli build...\e[0m\n"
-copr-cli build "$1" "$2" ${@:3}
 
 exit
