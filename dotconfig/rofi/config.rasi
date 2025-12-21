@@ -4,7 +4,7 @@ configuration {
   display-drun: "Applications:";
   display-window: "Windows:";
   drun-display-format: "{name}";
-  font: "JetBrainsMono Nerd Font Medium 12";
+  font: "Noto Sans Mono Font Medium 12";
   modi: "window,drun";
   show-icons: true;
 }
