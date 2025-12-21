@@ -11,9 +11,9 @@
 @define-color white #ebdbb2; 
 
 * {
-    font-family: "Noto Mono", monospace;
+    font-family: "Noto Sans Mono", monospace;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: normal;
     border: none;
     border-radius: 0px;
 }
