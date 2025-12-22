@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#############
+# Fastfetch #
+#############
+fastfetch --color green
+
+##########
+# Promit #
+##########
+PS1='\[\033[1;32m\]\u \[\033[0;37m\]\W \[\033[1;32m\]>\[\033[0;37m\] '
+
 ########
 # PATH #
 ########
@@ -39,15 +49,6 @@ export INPUTRC="$XDG_CONFIG_HOME"/readline/inputrc
 export WINEPREFIX="$XDG_DATA_HOME"/wine
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 
-##########
-# Promit #
-##########
-PS1='\[\033[1;32m\]\u \[\033[0;37m\]\W \[\033[1;32m\]>\[\033[0;37m\] '
-
-#############
-# Fastfetch #
-#############
-fastfetch --color green
 
 ###########
 # Aliases #
