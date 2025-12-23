@@ -30,7 +30,7 @@ echo 'FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=
 
 # Copy Dotfiles to their correct places
 cp -r $HOME/Dotfiles/dotconfig/* $HOME/.config
-cp -r $HOME/Dotfiles/dothome/* $HOME
+cp -r $HOME/Dotfiles/dothome/* ~/
 mkdir -p $HOME/.local/bin
 cp -r $HOME/Dotfiles/dotlocal/* $HOME/.local/bin
 chmod 755 $HOME/.local/bin
