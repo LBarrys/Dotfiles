@@ -17,16 +17,16 @@ if ! command -v $PREREQUISITES >/dev/null 2>&1; then
     echo -e "\033[32mFinished installing needed packages.\033[0m"
 fi
 
-# Qt Theme
+# Source bash file
+echo 'source "$HOME/.config/bash"' | sudo tee -a $HOME/.bashrc
+
+# Set Qt theme
 sudo mkdir -p /etc/environment.d/
 sudo touch /etc/environment.d/qt6.conf
 echo "QT_QPA_PLATFORMTHEME=fusion" | sudo tee -a /etc/environment.d/qt6.conf
 
 # Better looking fonts
 echo 'FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"' | sudo tee -a /etc/environment
-
-# Source bash file
-echo 'source "$HOME/.config/bash"' | sudo tee -a $HOME/.bashrc
 
 # Copy Dotfiles to their correct places
 cp -r $HOME/Dotfiles/dotconfig/* $HOME/.config
