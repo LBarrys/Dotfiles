@@ -27,6 +27,7 @@ echo "QT_QPA_PLATFORMTHEME=fusion" | sudo tee -a /etc/environment.d/qt6.conf
 
 # Better looking fonts
 echo 'FREETYPE_PROPERTIES="cff:no-stem-darkening=0 autofitter:no-stem-darkening=0"' | sudo tee -a /etc/environment
+sudo ln -s /usr/share/fontconfig/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d/
 
 # Copy Dotfiles to their correct places
 cp -r $HOME/Dotfiles/dotconfig/* $HOME/.config
