@@ -1,0 +1,1 @@
+![](https://codeberg.org/LBarrys/Dotfiles/raw/branch/main/assets/WaybarExample.png)
