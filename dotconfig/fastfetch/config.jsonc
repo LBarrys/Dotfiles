@@ -13,8 +13,8 @@
     	},
     	"padding": {
       		"top": 4,
-      		"left": 2,
-      		"right": 2,
+      		"left": 3,
+      		"right": 0,
    		}
     },
     "display": {
