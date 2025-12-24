@@ -7,7 +7,6 @@
 ///////////////////
 // Positionining //
 ///////////////////
-
     "position": "bottom", 
     "height": 25,
     "margin-bottom": 8,
@@ -17,7 +16,6 @@
 /////////////
 // Modules //
 /////////////
-
     "modules-left": [
         "network",
         "custom/vpn",
@@ -38,7 +36,6 @@
 ///////////////////////////
 // Modules Configuration //
 //////////////////////////
-
     "tray": {
         "spacing": 10
     },
