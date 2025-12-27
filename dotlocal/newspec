@@ -34,7 +34,7 @@ Requires:
 %doc 
 
 %changelog
-%auchangelog
+%autochangelog
 EOF)
 
 SPECDIR="$HOME/rpmbuild/SPECS"
