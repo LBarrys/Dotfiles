@@ -6,18 +6,14 @@ set -euo pipefail
 if ! command -v copr-cli >/dev/null 2>&1; then
     echo "copr-cli is not installed."
     sudo dnf install -y copr-cli
-    echo "Finished installing copr-cli."
 fi
 
 # Ensure API file exists
 COPR_CONF="$HOME/.config/copr"
 API_URL="https://copr.fedorainfracloud.org//api"
 if [[ ! -f "$COPR_CONF" ]]; then
-    echo "copr-cli API file not found."
-    echo "Paste your COPR API token you can find it at $API_URL :"
-    # Read multiple lines until Ctrl+D
+    echo "copr-cli API file not found. Paste your COPR API token you can find it at $API_URL :"
     COPR_API=$(cat)
-    # Save to file
     printf "%s\n" "$COPR_API" > "$COPR_CONF"
     echo "Copr API file created."
 fi
