@@ -21,5 +21,3 @@ if [[ ! -f "$COPR_CONF" ]]; then
     printf "%s\n" "$COPR_API" > "$COPR_CONF"
     echo "Copr API file created."
 fi
-
-exit
