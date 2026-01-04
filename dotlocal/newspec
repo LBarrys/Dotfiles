@@ -46,5 +46,3 @@ if [[ -d "$SPECDIR" ]]; then
 else
     printf "%s\n" "$SPEC" > "${NAME}.spec"
 fi
-
-exit
