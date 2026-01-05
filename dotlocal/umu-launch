@@ -2,14 +2,13 @@
 
 set -euo pipefail
 
-PACKAGES='umu-run ge-proton'
 WINEPREFIX_DIR="$HOME/Plus/Games/umu-launcher"
 PROTON_DIR="/usr/share/steam/compatibilitytools.d/ge-proton"
 OPTION="$1"
 GAME_PATH="$2"
 
 # Check for required packages
-if ! command -v $PACKAGES >/dev/null 2>&1; then
+if ! command -v umu-run >/dev/null 2>&1; then
     exit 1
 fi
 
