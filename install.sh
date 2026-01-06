@@ -1,19 +1,14 @@
 #!/bin/sh
 
-PREREQUISITES="alacritty hyprland hyprpaper hyprland-scratchpad hyprpolkitagent waybar cliphist nwg-look rofi-wayland pcmanfm lxmenu-data file-roller pavucontrol gammastep lm_sensors fastfetch gruvbox-gtk-dark-medium-theme papirus-icon-theme papirus-folders breeze-cursor-theme ms-core-fonts"
+PREREQUISITES="alacritty hyprland hyprpaper hyprland-scratchpad hyprpolkitagent waybar cliphist nwg-look rofi-wayland pcmanfm lxmenu-data file-roller pavucontrol gammastep lm_sensors fastfetch gruvbox-gtk-dark-medium-theme papirus-icon-theme papirus-folders breeze-cursor-theme"
 
 # Ensure needed packages are installed
 if ! command -v $PREREQUISITES >/dev/null 2>&1; then
-    sudo dnf copr enable lbarrys/nwg-look -y
-    sudo dnf copr enable lbarrys/papirus-folders -y
-    sudo dnf copr enable lbarrys/gruvbox-gtk-dark-medium-theme -y
-    sudo dnf copr enable lbarrys/cliphist -y
-    sudo dnf copr enable lbarrys/hyprland -y
-    sudo dnf copr enable lbarrys/hyprland-scratchpad -y
-    sudo dnf copr enable lbarrys/ms-core-fonts -y
+    sudo dnf copr enable lbarrys/LBsWorld -y
     sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
     sudo dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
-    sudo dnf install $PREREQUISITES google-noto-* --exclude=google-noto-*-vf-*,google-noto-fonts-all,google-noto-fonts-all-static,google-noto-fonts-all-vf
+    sudo dnf install $PREREQUISITES
+    sudo dnf install webcore-fonts webcore-fonts-vista google-noto-* --exclude=google-noto-*-vf-*,google-noto-fonts-all,google-noto-fonts-all-static,google-noto-fonts-all-vf
 fi
 
 # Source bash file
