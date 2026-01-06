@@ -8,7 +8,7 @@ if ! command -v $PREREQUISITES >/dev/null 2>&1; then
     sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm -y
     sudo dnf install https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
     sudo dnf install $PREREQUISITES
-    sudo dnf install webcore-fonts webcore-fonts-vista google-noto-* --exclude=google-noto-*-vf-*,google-noto-fonts-all,google-noto-fonts-all-static,google-noto-fonts-all-vf
+    sudo dnf install ms-core-*-fonts google-noto-* --exclude=google-noto-*-vf-*,google-noto-fonts-all,google-noto-fonts-all-static,google-noto-fonts-all-vf
 fi
 
 # Source bash file
