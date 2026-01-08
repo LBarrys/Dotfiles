@@ -85,11 +85,6 @@ alias gco='git commit'
 alias gpr='git pull --rebase origin main'
 alias gp='git push'
 
-# TAR
-alias ctar='tar -czvf'
-alias xtar='tar -xvzf'
-alias ltar='tar -tvf'
-
 # Colors
 NOCOLOR='\033[0m'
 BLACK='\033[30m'
