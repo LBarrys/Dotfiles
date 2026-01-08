@@ -1,0 +1,67 @@
+#!/bin/bash
+
+set -euo pipefail
+
+COPR_CONF="$HOME/.config/copr"
+API_URL="https://copr.fedorainfracloud.org/api"
+OPTION=$1
+
+NOCOLOR="\033[0m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+
+# Check for copr-cli
+if ! command -v copr-cli >/dev/null 2>&1; then
+    sudo dnf install -y copr-cli
+fi
+
+# Options
+HELP () {
+    cat <<EOF
+usage:
+  copr-helper <option>
+
+options:
+  help         Print this message
+  api          Create Copr API config if missing
+  cheatsheet   Show common copr-cli commands
+EOF
+}
+
+API () {
+	if [[ ! -f "$COPR_CONF" ]]; then
+    	echo -e "${BLUE}copr API file not found. Paste your COPR API token. You can find it at ${API_URL}:${NOCOLOR}"
+    	COPR_API=$(cat)
+    	printf "%s\n" "$COPR_API" > "$COPR_CONF"
+    else
+    	echo -e "${YELLOW}copr API found."
+	fi
+}
+
+CHEATSHEAT () {
+	echo -e "${BLUE}<delete copr repo> ${YELLOW}copr-cli delete ${BLUE}<repo name>"
+	echo
+	echo -e "${BLUE}<create new copr repo> ${YELLOW}copr-cli create ${BLUE}<repo name> ${YELLOW}--chroot ${BLUE}<build chroot> ${YELLOW}--description ${BLUE}<repo description> ${YELLOW}--instructions ${BLUE}<repo instructions> ${YELLOW}--enable-net on ${BLUE}<enable net during build>"
+	echo
+	echo -e "${BLUE}<list all builds in the project> ${YELLOW}copr-cli list-builds ${BLUE}<repo name>"
+	echo
+	echo -e "${BLUE}<build packages to a specified copr> ${YELLOW}copr-cli build ${BLUE}<repo name> ${BLUE}<path to spec or srpm file> ${YELLOW}-r ${BLUE}<build chroot>"
+	echo
+	echo -e "${BLUE}<builds package from Git/DistGit/SVN repository> ${YELLOW}copr-cli buildscm ${BLUE}<repo name> ${YELLOW}--clone-url ${BLUE}<git repo url> ${YELLOW}--spec ${BLUE}<path to spec file in the git repo> ${YELLOW}-r ${BLUE}<build chroot>"
+	echo
+	echo -e "${BLUE}<cancel build specified by its ID> copr-cli cancel <the id of the build you want to cancel>"
+	echo
+	echo -e "${BLUE}<delete builds specified by their IDs> ${YELLOW}copr-cli delete-build ${BLUE}<the id of the build you want to delete>"
+}
+
+case "$OPTION" in
+	help)
+		HELP
+		;;
+	api)
+		API
+		;;
+	cheatsheat)
+		CHEATSHEAT
+		;;
+esac
