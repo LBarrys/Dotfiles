@@ -3,7 +3,7 @@
 #############
 # Fastfetch #
 #############
-fastfetch --color green
+fastfetch
 
 ##########
 # Promit #
@@ -57,11 +57,11 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 ###########
 
 # General
-alias ..="cd .."
-alias ..2="cd ../../"
-alias ..3="cd ../../../"
-alias ..4="cd ../../../../"
-alias ..5="cd ../../../../../"
+alias ..='cd ..'
+alias ..2='cd ../../'
+alias ..3='cd ../../../'
+alias ..4='cd ../../../../'
+alias ..5='cd ../../../../../'
 alias ls='ls -Ahl --color=auto'
 alias grep='grep --color=auto'
 alias update-grub='sudo grub2-mkconfig -o /boot/grub2/grub.cfg'
@@ -75,20 +75,20 @@ alias autoremove='sudo dnf autoremove'
 alias list-installed='dnf list --installed'
 
 # GIT
-alias gc="git clone"
-alias gi="git init"
-alias ga="git add"
-alias gmv="git mv"
-alias gre="git restore"
-alias grm="git rm"
-alias gco="git commit"
-alias gpr="git pull --rebase origin main"
-alias gp="git push"
+alias gc='git clone'
+alias gi='git init'
+alias ga='git add'
+alias gmv='git mv'
+alias gre='git restore'
+alias grm='git rm'
+alias gco='git commit'
+alias gpr='git pull --rebase origin main'
+alias gp='git push'
 
 # TAR
-alias ctar="tar -czvf"
-alias xtar="tar -xvzf"
-alias ltar="tar -tvf"
+alias ctar='tar -czvf'
+alias xtar='tar -xvzf'
+alias ltar='tar -tvf'
 
 # Colors
 NOCOLOR='\033[0m'
@@ -100,11 +100,3 @@ BLUE='\033[34m'
 MAGENTA='\033[35m'
 CYAN='\033[36m'
 WHITE='\033[1;37m'
-
-############################
-# Load system-wide profile #
-############################
-if [ -f /etc/profile ]; then
-    . /etc/profile
-fi
-
