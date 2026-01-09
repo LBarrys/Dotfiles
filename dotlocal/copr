@@ -4,7 +4,6 @@ set -euo pipefail
 
 COPR_CONF="$HOME/.config/copr"
 API_URL="https://copr.fedorainfracloud.org/api"
-OPTION=$1
 
 NOCOLOR="\033[0m"
 YELLOW="\033[33m"
@@ -16,19 +15,19 @@ if ! command -v copr-cli >/dev/null 2>&1; then
 fi
 
 # Options
-HELP () {
-    cat <<EOF
-usage:
-  copr-helper <option>
+usage() {
+	local prog=${0##*/}
+	cat <<-EOF
+	Usage: $prog [options]
 
-options:
-  help         Print this message
-  api          Create Copr API config if missing
-  cheatsheet   Show common copr-cli commands
-EOF
+	Options:
+	  -h    print this message and exit
+	  -a    create copr API config if missing
+	  -c    Show common copr-cli commands
+	EOF
 }
 
-API () {
+api() {
 	if [[ ! -f "$COPR_CONF" ]]; then
     	echo -e "${BLUE}copr API file not found. Paste your COPR API token. You can find it at ${API_URL}:${NOCOLOR}"
     	COPR_API=$(cat)
@@ -38,7 +37,7 @@ API () {
 	fi
 }
 
-CHEATSHEAT () {
+cheatsheat() {
 	echo -e "${BLUE}<delete copr repo> ${YELLOW}copr-cli delete ${BLUE}<repo name>"
 	echo
 	echo -e "${BLUE}<create new copr repo> ${YELLOW}copr-cli create ${BLUE}<repo name> ${YELLOW}--chroot ${BLUE}<build chroot> ${YELLOW}--description ${BLUE}<repo description> ${YELLOW}--instructions ${BLUE}<repo instructions> ${YELLOW}--enable-net on ${BLUE}<enable net during build>"
@@ -54,14 +53,24 @@ CHEATSHEAT () {
 	echo -e "${BLUE}<delete builds specified by their IDs> ${YELLOW}copr-cli delete-build ${BLUE}<the id of the build you want to delete>"
 }
 
-case "$OPTION" in
-	help)
-		HELP
-		;;
-	api)
-		API
-		;;
-	cheatsheat)
-		CHEATSHEAT
-		;;
-esac
+main() {
+	local opt OPTIND OPTARG
+	while getopts 'hac' opt; do
+		case "$opt" in
+			h) usage; return 0;;
+			a) api; return 0;;
+			c) cheatsheat; return 0;;
+			*) usage >&2; return 1;;
+		esac
+	done
+	shift "$((OPTIND - 1))"
+
+	if (($# == 0)); then
+		usage >&2
+		return 1
+	fi
+
+	"$@"
+}
+
+main "$@"

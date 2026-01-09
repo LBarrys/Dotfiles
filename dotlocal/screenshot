@@ -4,8 +4,6 @@ set -euo pipefail
 
 PACKAGES="grim slurp jg hyprctl"
 FOLDER=$HOME/.local/share/Screenshots
-ACTIVE=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
-MODE="$1"
 
 # Check for require packages
 if ! command -v $PACKAGES >/dev/null 2>&1; then
@@ -17,27 +15,52 @@ if [[ !  -d $FOLDER ]]; then
 	mkdir -p $FOLDER
 fi
 
-# MODES
-area () {
+# Options
+usage() {
+	local prog=${0##*/}
+	cat <<-EOF
+	Usage: $prog [options]
+
+	Options:
+	  -h    print this message and exit
+	  -a    capture the selected area
+	  -c    capture the active monitor
+	  -d    capture both monitors
+	EOF
+}
+
+area() {
 	grim -g "$(slurp)" "$FOLDER/Screenshot-$(date +%F_%H-%M-%S).png"
 }
 
-active () {
+active() {
+	local ACTIVE=$(hyprctl activewindow -j | jq -r '"\(.at[0]),\(.at[1]) \(.size[0])x\(.size[1])"')
 	grim -g "$ACTIVE" $FOLDER/Screenshot$(date +%F_%H-%M-%S).png
 }
 
-dual () {
+dual() {
 	grim "$FOLDER/Screenshot-$(date +%F_%H-%M-%S).png"
 }
 
-case "$MODE" in
-	AREA)
-		area
-		;;
-	ACTIVE)
-		active
-		;;
-	DUAL)
-		dual
-		;;
-esac
+main() {
+	local opt OPTIND OPTARG
+	while getopts 'hacd' opt; do
+		case "$opt" in
+			h) usage; return 0;;
+			a) area; return 0;;
+			c) active; return 0;;
+			d) dual; return 0;;
+			*) usage >&2; return 1;;
+		esac
+	done
+	shift "$((OPTIND - 1))"
+
+	if (($# == 0)); then
+		usage >&2
+		return 1
+	fi
+
+	"$@"
+}
+
+main "$@"

@@ -4,21 +4,32 @@ set -euo pipefail
 
 WINEPREFIX_DIR="$HOME/Plus/Games/umu-launcher"
 PROTON_DIR="/usr/share/steam/compatibilitytools.d/ge-proton"
-OPTION="$1"
-GAME_PATH="$2"
 
 # Check for required packages
 if ! command -v umu-run >/dev/null 2>&1; then
     exit 1
 fi
 
-Xwayland () {
+# Options
+usage() {
+	local prog=${0##*/}
+	cat <<-EOF
+	Usage: $prog [options]
+
+	Options:
+	  -h    print this message and exit
+	  -x    run umu-launcher under xwayland
+	  -w    run umu-launcher under wayland
+	EOF
+}
+
+xwayland() {
     WINEPREFIX="$WINEPREFIX_DIR" \
     PROTONPATH="$PROTON_DIR" \
     umu-run "$GAME_PATH"
 }
 
-Wayland () {
+wayland() {
     PROTON_USE_WOW64=1 \
     PROTON_ENABLE_WAYLAND=1 \
     PROTONFIXES_DISABLE=1 \
@@ -28,11 +39,25 @@ Wayland () {
     umu-run "$GAME_PATH"
 }
 
-case "$OPTION" in
-	XWAYLAND)
-		Xwayland
-		;;
-	WAYLAND)
-		Wayland
-		;;
-esac
+main() {
+	local GAME_PATH="$2"
+	local opt OPTIND OPTARG
+	while getopts 'hx:w:' opt; do
+		case "$opt" in
+			h) usage; return 0;;
+			x) xwayland ${GAME_PATH}; return 0;;
+			w) wayland ${GAME_PATH}; return 0;;
+			*) usage >&2; return 1;;
+		esac
+	done
+	shift "$((OPTIND - 1))"
+
+	if (($# == 0)); then
+		usage >&2
+		return 1
+	fi
+
+	"$@"
+}
+
+main "$@"
