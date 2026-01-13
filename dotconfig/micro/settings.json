@@ -1,4 +1,15 @@
 {
+    "autosu": true,
+    "backup": false,
+    "basename": true,
     "clipboard": "terminal",
-    "colorscheme": "gruvbox"
+    "colorscheme": "gruvbox",
+    "cursorline": false,
+    "ftoptions": false,
+    "hlsearch": true,
+    "matchbracestyle": "highlight",
+    "mouse": false,
+    "paste": true,
+    "tabstospaces": true,
+    "xterm": true
 }
