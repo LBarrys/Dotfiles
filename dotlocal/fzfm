@@ -1,0 +1,64 @@
+#!/bin/bash
+
+LS='ls -a --group-directories-first -1'
+
+if [[ ! -d /tmp/copied ]]; then
+    mkdir -p /tmp/copied
+fi
+
+fzfm () {
+    while true; do
+        selection="$($LS | fzf \
+            --bind "left:pos(2)+accept" \
+            --bind "right:accept" \
+            --bind "shift-up:preview-up" \
+            --bind "shift-down:preview-down" \
+            --bind "ctrl-d:execute(fzfm-tools -d)+reload($LS)" \
+            --bind "ctrl-f:execute(fzfm-tools -f)+reload($LS)" \
+            --bind "ctrl-x:execute-silent(fzfm-tools -x {+})+reload($LS)" \
+            --bind "ctrl-o:execute(xdg-open {})" \
+            --bind "ctrl-r:execute-silent(rm -fr {+})+reload($LS)" \
+            --bind "ctrl-c:execute-silent(cp -r {+} /tmp/copied/$(basename {+}).copy)" \
+            --bind "ctrl-m:execute-silent(mv -n {+} /tmp/copied/$(basename {+}).copy)+reload($LS)" \
+            --bind "ctrl-s:execute-silent(mv -n /tmp/copied/* . && rm -rf /tmp/copied/*)+reload($LS)" \
+            --bind "esc:execute(rm -rf /tmp/copied/*)+abort" \
+            --bind "space:toggle" \
+            --color=fg:#ebdbb2,fg+:#ebdbb2,bg+:#282828 \
+            --color=hl:#98971a,hl+:#98971a,info:#98971a,marker:#ebdbb2 \
+            --color=pointer:#98971a,spinner:#ebdbb2,prompt:#98971a,header:#ebdbb2 \
+            --color=border:#ebdbb2,list-border:#ebdbb2,footer:#98971a,label:#98971a \
+            --height 100% \
+            --reverse \
+            --multi \
+            --info inline-right \
+            --no-scrollbar \
+            --prompt "Search: " \
+            --border "sharp" \
+            --border-label "$(pwd)/" \
+--footer="right-arrow go to directory
+left-arrow  go to previous directory
+space       select file/directory
+ctrl-f      create file
+ctrl-d      create directory
+ctrl-c      copy file
+ctrl-m      move file
+ctrl-s      send copied/moved file a directory
+ctrl-r      remove file/directory
+ctrl-o      open file with xdg-open
+ctrl-x      extract archive file"\
+            --preview-border "sharp" \
+            --preview-window=right:70% \
+            --preview 'cd_pre="$(echo $(pwd)/$(echo {}))";
+                    ls -Av --group-directories-first "${cd_pre}";
+                    case "$(file --mime-type -b {})" in
+                        text/*) cat {} 2>/dev/null;;
+                    esac')"
+                        if [[ -d ${selection} ]]; then
+                            cd "${selection}" || return
+                        else
+                            break
+                        fi
+                done
+        }
+clear
+fzfm

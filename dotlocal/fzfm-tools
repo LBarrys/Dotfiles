@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+set -eux
+
+usage() {
+	local prog=${0##*/}
+	cat <<-EOF
+	Usage: $prog [options]
+
+	Options:
+	  -h    print this message and exit
+	  -d    create new directory
+	  -f    create new file
+	  -x    extract archived file
+	EOF
+}
+
+create-directory() {
+	local new_dir_name
+	read -rp "Enter Directory Name: " new_dir_name
+	mkdir -p "$(pwd)/${new_dir_name}"
+}
+
+create-file() {
+	local filenames
+	read -rp "Enter File Names Separated by Spaces: " filenames
+	for filename in $filenames; do
+	  touch "$filename"
+    done
+}
+
+extract-archive() {
+    local archive=$1
+    case "$archive" in
+        *.tar*) tar xf "$archive" ;;
+        *.zip)  unzip "$archive" ;;
+        *.7z)   7z x "$archive" ;;
+        *.rar)  unrar x "$archive" ;;
+    esac
+}
+
+main() {
+	local opt OPTIND OPTARG
+	while getopts 'hdfx' opt; do
+		case "$opt" in
+			h) usage; return 0;;
+			d) create-directory; return 0;;
+			f) create-file; return 0;;
+			x) shift "$((OPTIND - 1))"
+			   extract-archive "$1"
+			   return 0;;
+			*) usage >&2; return 1;;
+		esac
+	done
+	if (($# == 0)); then
+		usage >&2
+		return 1
+	fi
+	"$@"
+}
+
+main "$@"
