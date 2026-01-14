@@ -10,11 +10,6 @@ fastfetch
 ##########
 PS1='\[\033[1;32m\]\u \[\033[0;37m\]\W \[\033[1;32m\]>\[\033[0;37m\] '
 
-########
-# PATH #
-########
-export PATH
-
 ##########
 # Locale #
 ##########
@@ -27,15 +22,12 @@ export LC_ALL=en_US.UTF-8
 export EDITOR=micro
 export VISUAL=$EDITOR
 
-#######################################
-# Auto "cd" When Entering Just a Path #
-#######################################
+###############
+# Preferences #
+###############
 shopt -s autocd
-
-##############################
-# Line Wrap on Window Resize #
-##############################
 shopt -s checkwinsize
+shopt -s nullglob
 
 ########################
 # XDG Base Directories #
@@ -71,8 +63,7 @@ alias i='sudo dnf install'
 alias r='sudo dnf remove'
 alias u='sudo dnf update --refresh'
 alias s='dnf search'
-alias autoremove='sudo dnf autoremove'
-alias list-installed='dnf list --installed'
+alias ar='sudo dnf autoremove'
 
 # GIT
 alias gc='git clone'
