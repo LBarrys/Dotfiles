@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PREREQUISITES="alacritty hyprland hyprpaper hyprland-scratchpad hyprpolkitagent waybar cliphist nwg-look rofi-wayland pcmanfm lxmenu-data file-roller pavucontrol gammastep lm_sensors fastfetch gruvbox-gtk-dark-medium-theme papirus-icon-theme papirus-folders breeze-cursor-theme"
+PREREQUISITES="alacritty hyprland hyprpaper hyprland-scratchpad hyprpolkitagent waybar cliphist nwg-look rofi-wayland nautilus file-roller-nautilus pavucontrol gammastep lm_sensors fastfetch gruvbox-gtk-dark-medium-theme papirus-icon-theme papirus-folders breeze-cursor-theme"
 
 # Ensure needed packages are installed
 if ! command -v $PREREQUISITES >/dev/null 2>&1; then
