@@ -62,10 +62,10 @@
         "interval": 1,
     },
 
-    "custom/vpn": {
-	    "format": " VPN: {} ",
-	    "exec": "warp-cli status | grep -oE 'Connected|Disconnected'",
-	    "interval": 1,
+    "custom/updates": {
+	    "format": " Updates: {} ",
+	    "exec": "echo $(dnf check-upgrade --refresh | wc -l) RPMs",
+	    "interval": 200,
     },
 
     "memory": {
